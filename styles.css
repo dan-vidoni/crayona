@@ -1,0 +1,271 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f0e8;
+  --panel: rgba(255, 251, 245, 0.9);
+  --panel-border: rgba(53, 33, 12, 0.16);
+  --ink: #2c2017;
+  --muted: #6e5a4a;
+  --accent: #c4602f;
+  --accent-soft: rgba(196, 96, 47, 0.14);
+  --canvas: #fffdf8;
+  --shadow: 0 18px 34px rgba(68, 41, 15, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(255, 210, 168, 0.45), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(217, 162, 113, 0.3), transparent 20%),
+    linear-gradient(180deg, #fbf7f1 0%, var(--bg) 100%);
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+  gap: 18px;
+  min-height: 100vh;
+  padding: 18px;
+}
+
+.panel,
+.canvas-frame {
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  background: var(--panel);
+  backdrop-filter: blur(12px);
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 0.95;
+}
+
+.intro {
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.45;
+  font-size: 0.92rem;
+}
+
+.controls-panel {
+  margin-top: 2px;
+  padding: 10px;
+  border: 1px solid rgba(44, 32, 23, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.62);
+  display: grid;
+  gap: 7px;
+}
+
+.controls-panel h2 {
+  margin: 0 0 4px;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.preset-wrap {
+  display: grid;
+  gap: 6px;
+}
+
+.preset-title {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.preset-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.preset-button {
+  border: 1px solid rgba(44, 32, 23, 0.14);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.74);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease;
+}
+
+.preset-button:hover {
+  transform: translateY(-1px);
+}
+
+.preset-button.is-active {
+  background: var(--accent-soft);
+  border-color: rgba(196, 96, 47, 0.34);
+  color: var(--accent);
+}
+
+.control-row {
+  display: grid;
+  grid-template-columns: 1fr minmax(84px, 1fr) 42px;
+  gap: 8px;
+  align-items: center;
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+.control-row output {
+  text-align: right;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.control-row input[type="range"] {
+  width: 100%;
+}
+
+.control-row.inline {
+  grid-template-columns: 1fr auto;
+}
+
+.control-row.inline select,
+.control-row.inline input[type="color"] {
+  width: 96px;
+}
+
+.control-row.inline input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+.canvas-frame {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+  min-height: 0;
+  padding: 12px;
+  background: rgba(255, 248, 240, 0.72);
+}
+
+.tool-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 82px;
+}
+
+.tool,
+.ghost-button {
+  border: 1px solid rgba(44, 32, 23, 0.14);
+  border-radius: 10px;
+  padding: 7px 8px;
+  font: inherit;
+  font-size: 0.78rem;
+  line-height: 1.1;
+  cursor: pointer;
+  transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease;
+}
+
+.tool {
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--ink);
+}
+
+.tool:hover,
+.ghost-button:hover {
+  transform: translateY(-1px);
+}
+
+.tool.is-active {
+  background: var(--accent-soft);
+  border-color: rgba(196, 96, 47, 0.34);
+  color: var(--accent);
+}
+
+.ghost-button {
+  background: transparent;
+  color: var(--muted);
+}
+
+.ghost-button.is-active {
+  background: var(--accent-soft);
+  border-color: rgba(196, 96, 47, 0.34);
+  color: var(--accent);
+}
+
+.status-row {
+  display: grid;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.status-pill {
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.74);
+  color: var(--muted);
+  font-size: 0.74rem;
+  text-align: center;
+}
+
+#drawing-canvas {
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 56px);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(215, 166, 112, 0.08), transparent 18%),
+    radial-gradient(circle at 82% 22%, rgba(255, 204, 153, 0.09), transparent 20%),
+    radial-gradient(circle at 28% 72%, rgba(123, 92, 63, 0.04), transparent 24%),
+    repeating-linear-gradient(0deg, rgba(111, 89, 66, 0.01) 0, rgba(111, 89, 66, 0.01) 1px, transparent 1px, transparent 5px),
+    linear-gradient(var(--canvas), #fff8ee) padding-box,
+    linear-gradient(180deg, rgba(44, 32, 23, 0.04), rgba(44, 32, 23, 0.08)) border-box;
+  border: 1px solid rgba(44, 32, 23, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -24px 50px rgba(125, 89, 49, 0.03);
+  touch-action: none;
+}
+
+@media (max-width: 960px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .controls-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .controls-panel h2 {
+    grid-column: 1 / -1;
+  }
+
+  #drawing-canvas {
+    max-height: none;
+  }
+}

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crayona POC</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="panel">
+        <div>
+          <p class="eyebrow">Crayona</p>
+          <h1>Hand-drawn scene POC</h1>
+          <p class="intro">
+            This proof of concept now uses RoughJS. Pick a tool and draw directly on the paper.
+          </p>
+        </div>
+
+        <section class="controls-panel" aria-label="RoughJS controls">
+          <h2>RoughJS controls</h2>
+
+          <div class="preset-wrap" aria-label="Sketch styles">
+            <span class="preset-title">Sketch styles</span>
+            <div class="preset-buttons">
+              <button class="preset-button is-active" type="button" data-preset="crayon">Crayon Wax</button>
+              <button class="preset-button" type="button" data-preset="pencil">Pencil Draft</button>
+              <button class="preset-button" type="button" data-preset="ink">Ink Comic</button>
+              <button class="preset-button" type="button" data-preset="chalk">Chalk Dust</button>
+              <button class="preset-button" type="button" data-preset="technical">Technical</button>
+              <button class="preset-button" type="button" data-preset="playful">Playful Sketch</button>
+            </div>
+          </div>
+
+          <label class="control-row">
+            <span>Sloppiness</span>
+            <input data-opt="roughness" type="range" min="0" max="4" step="0.05" value="1.35" />
+            <output data-out="roughness">1.35</output>
+          </label>
+
+          <label class="control-row">
+            <span>Stroke width</span>
+            <input data-opt="strokeWidth" type="range" min="1" max="12" step="0.25" value="3" />
+            <output data-out="strokeWidth">3</output>
+          </label>
+
+          <label class="control-row">
+            <span>Bowing</span>
+            <input data-opt="bowing" type="range" min="0" max="4" step="0.05" value="1.1" />
+            <output data-out="bowing">1.1</output>
+          </label>
+
+          <label class="control-row">
+            <span>Randomness offset</span>
+            <input data-opt="maxRandomnessOffset" type="range" min="0" max="12" step="0.25" value="2" />
+            <output data-out="maxRandomnessOffset">2</output>
+          </label>
+
+          <label class="control-row">
+            <span>Curve fitting</span>
+            <input data-opt="curveFitting" type="range" min="0.6" max="1" step="0.01" value="0.95" />
+            <output data-out="curveFitting">0.95</output>
+          </label>
+
+          <label class="control-row">
+            <span>Curve steps</span>
+            <input data-opt="curveStepCount" type="range" min="4" max="24" step="1" value="9" />
+            <output data-out="curveStepCount">9</output>
+          </label>
+
+          <label class="control-row">
+            <span>Simplification</span>
+            <input data-opt="simplification" type="range" min="0" max="1" step="0.02" value="0" />
+            <output data-out="simplification">0</output>
+          </label>
+
+          <label class="control-row inline">
+            <span>Stroke color</span>
+            <input data-opt="stroke" type="color" value="#6b4a2f" />
+          </label>
+
+          <label class="control-row inline">
+            <span>Disable multi-stroke</span>
+            <input data-opt="disableMultiStroke" type="checkbox" />
+          </label>
+
+          <label class="control-row inline">
+            <span>Preserve vertices</span>
+            <input data-opt="preserveVertices" type="checkbox" />
+          </label>
+
+          <label class="control-row inline">
+            <span>Shadow style</span>
+            <select data-opt="shadowStyle">
+              <option value="soft">Soft</option>
+              <option value="hard">Hard</option>
+              <option value="glow">Glow</option>
+              <option value="lifted">Lifted</option>
+              <option value="sketch">Sketch offset</option>
+            </select>
+          </label>
+
+          <label class="control-row inline">
+            <span>Shadow color</span>
+            <input data-opt="shadowColor" type="color" value="#312419" />
+          </label>
+
+          <label class="control-row">
+            <span>Shadow X</span>
+            <input data-opt="shadowOffsetX" type="range" min="-24" max="24" step="1" value="3" />
+            <output data-out="shadowOffsetX">3</output>
+          </label>
+
+          <label class="control-row">
+            <span>Shadow Y</span>
+            <input data-opt="shadowOffsetY" type="range" min="-24" max="24" step="1" value="3" />
+            <output data-out="shadowOffsetY">3</output>
+          </label>
+
+          <label class="control-row">
+            <span>Shadow passes</span>
+            <input data-opt="shadowPasses" type="range" min="1" max="6" step="1" value="2" />
+            <output data-out="shadowPasses">2</output>
+          </label>
+
+          <label class="control-row">
+            <span>Shadow jitter</span>
+            <input data-opt="shadowJitter" type="range" min="0" max="4" step="0.1" value="1.2" />
+            <output data-out="shadowJitter">1.2</output>
+          </label>
+
+          <label class="control-row">
+            <span>Shadow spread</span>
+            <input data-opt="shadowSpread" type="range" min="0" max="3" step="0.1" value="0.4" />
+            <output data-out="shadowSpread">0.4</output>
+          </label>
+
+          <label class="control-row">
+            <span>Shadow rough boost</span>
+            <input data-opt="shadowRoughnessBoost" type="range" min="0" max="2.5" step="0.05" value="0.55" />
+            <output data-out="shadowRoughnessBoost">0.55</output>
+          </label>
+
+          <label class="control-row">
+            <span>Shadow bow boost</span>
+            <input data-opt="shadowBowingBoost" type="range" min="0" max="2" step="0.05" value="0.2" />
+            <output data-out="shadowBowingBoost">0.2</output>
+          </label>
+
+          <label class="control-row">
+            <span>Shadow seed step</span>
+            <input data-opt="shadowSeedStep" type="range" min="1" max="251" step="1" value="97" />
+            <output data-out="shadowSeedStep">97</output>
+          </label>
+
+          <label class="control-row">
+            <span>Shadow opacity</span>
+            <input data-opt="shadowOpacity" type="range" min="0" max="1" step="0.02" value="0.25" />
+            <output data-out="shadowOpacity">0.25</output>
+          </label>
+
+          <label class="control-row inline">
+            <span>Shape fill</span>
+            <input data-opt="fillEnabled" type="checkbox" />
+          </label>
+
+          <label class="control-row inline">
+            <span>Fill color</span>
+            <input data-opt="fill" type="color" value="#d3a170" />
+          </label>
+
+          <label class="control-row inline">
+            <span>Fill style</span>
+            <select data-opt="fillStyle">
+              <option value="hachure">Hachure</option>
+              <option value="solid">Solid</option>
+              <option value="cross-hatch">Cross hatch</option>
+              <option value="zigzag">Zigzag</option>
+              <option value="dots">Dots</option>
+              <option value="dashed">Dashed</option>
+              <option value="zigzag-line">Zigzag line</option>
+            </select>
+          </label>
+
+          <label class="control-row">
+            <span>Fill weight</span>
+            <input data-opt="fillWeight" type="range" min="0.2" max="6" step="0.1" value="1" />
+            <output data-out="fillWeight">1</output>
+          </label>
+
+          <label class="control-row">
+            <span>Hachure gap</span>
+            <input data-opt="hachureGap" type="range" min="1" max="24" step="1" value="4" />
+            <output data-out="hachureGap">4</output>
+          </label>
+
+          <label class="control-row">
+            <span>Hachure angle</span>
+            <input data-opt="hachureAngle" type="range" min="-90" max="90" step="1" value="-41" />
+            <output data-out="hachureAngle">-41</output>
+          </label>
+        </section>
+      </section>
+
+      <section class="canvas-frame">
+        <aside class="tool-rail" role="toolbar" aria-label="Drawing tools">
+          <button class="tool is-active" type="button" data-tool="freedraw">Free</button>
+          <button class="tool" type="button" data-tool="line">Line</button>
+          <button class="tool" type="button" data-tool="circle">Circle</button>
+          <button class="tool" type="button" data-tool="square">Square</button>
+          <button class="ghost-button" type="button" id="clear-canvas">Clear</button>
+          <button class="ghost-button" type="button" id="shadow-toggle">Shadow: Off</button>
+
+          <div class="status-row">
+            <span class="status-pill"><strong id="active-tool-label">Free draw</strong></span>
+            <span class="status-pill">#<strong id="shape-count">0</strong></span>
+          </div>
+        </aside>
+
+        <canvas id="drawing-canvas" width="1200" height="720" aria-label="Drawing canvas"></canvas>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
